@@ -231,9 +231,16 @@
         }
 
         function bayar() {
-            alert("Terima kasih telah memesan. Silakan bayar di kasir.");
-            location.reload(); // Memuat ulang halaman setelah alert ditampilkan
+            var nama = document.getElementById("nama").value;
+            var hp = document.getElementById("hp").value;
+            
+            if (nama === "" || hp === "") {
+                alert("Nama dan Nomor HP harus diisi untuk melakukan pembayaran :(");
+            } else {
+                alert("Terima kasih telah memesan. Silakan bayar di kasir :)");
+                location.reload(); // Memuat ulang halaman setelah alert ditampilkan
+            }
         }
-    </script>
-</body>
+         </script>
+    </body>
 </html>
