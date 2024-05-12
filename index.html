@@ -116,38 +116,44 @@
         <tr>
             <th>Makanan</th>
             <th>Harga</th>
+            <th>Jumlah</th>
             <th>Deskripsi</th>
             <th>Pesan</th>
         </tr>
         <tr>
             <td>Ayam Goreng</td>
             <td>Rp 20.000</td>
+            <td><input type="number" id="qtyAyamGoreng" min="1" value="1"></td>
             <td>Ayam goreng dengan bumbu khas.</td>
-            <td><button class="pesan-btn" onclick="tambahPesanan('Ayam Goreng', 20000)">Pesan</button></td>
+            <td><button class="pesan-btn" onclick="tambahPesanan('Ayam Goreng', 20000, 'qtyAyamGoreng')">Pesan</button></td>
         </tr>
         <tr>
             <td>Burger King</td>
             <td>Rp 15.000</td>
+            <td><input type="number" id="qtyBurgerKing" min="1" value="1"></td>
             <td>Burger dengan patty daging sapi, sayuran, dan saus.</td>
-            <td><button class="pesan-btn" onclick="tambahPesanan('Burger King', 15000)">Pesan</button></td>
+            <td><button class="pesan-btn" onclick="tambahPesanan('Burger King', 15000, 'qtyBurgerKing')">Pesan</button></td>
         </tr>
         <tr>
             <td>Kentang Goreng</td>
             <td>Rp 10.000</td>
+            <td><input type="number" id="qtyKentangGoreng" min="1" value="1"></td>
             <td>Kentang goreng renyah.</td>
-            <td><button class="pesan-btn" onclick="tambahPesanan('Kentang Goreng', 10000)">Pesan</button></td>
+            <td><button class="pesan-btn" onclick="tambahPesanan('Kentang Goreng', 10000, 'qtyKentangGoreng')">Pesan</button></td>
         </tr>
         <tr>
             <td>Teh Obeng</td>
             <td>Rp 5.000</td>
+            <td><input type="number" id="qtyTehObeng" min="1" value="1"></td>
             <td>Teh manis dengan es.</td>
-            <td><button class="pesan-btn" onclick="tambahPesanan('Teh Obeng', 5000)">Pesan</button></td>
+            <td><button class="pesan-btn" onclick="tambahPesanan('Teh Obeng', 5000, 'qtyTehObeng')">Pesan</button></td>
         </tr>
         <tr>
             <td>Es Campur</td>
             <td>Rp 25.000</td>
+            <td><input type="number" id="qtyEsCampur" min="1" value="1"></td>
             <td>Es campur dengan berbagai macam buah.</td>
-            <td><button class="pesan-btn" onclick="tambahPesanan('Es Campur', 25000)">Pesan</button></td>
+            <td><button class="pesan-btn" onclick="tambahPesanan('Es Campur', 25000, 'qtyEsCampur')">Pesan</button></td>
         </tr>
     </table>
 
@@ -164,8 +170,9 @@
     <script>
         var pesanan = [];
 
-        function tambahPesanan(makanan, harga) {
-            pesanan.push({ makanan: makanan, harga: harga });
+        function tambahPesanan(makanan, harga, qtyId) {
+            var qty = document.getElementById(qtyId).value;
+            pesanan.push({ makanan: makanan, harga: harga, qty: qty });
             updateNota();
         }
 
@@ -181,8 +188,8 @@
             var totalHarga = 0;
 
             for (var i = 0; i < pesanan.length; i++) {
-                pesananText += pesanan[i].makanan + " (Rp " + pesanan[i].harga + ")<button class='batal-btn' onclick='batalPesanan(" + i + ")'>Batal</button><br>";
-                totalHarga += pesanan[i].harga;
+                pesananText += pesanan[i].makanan + " (x" + pesanan[i].qty + ") - Rp " + pesanan[i].harga * pesanan[i].qty + "<button class='batal-btn' onclick='batalPesanan(" + i + ")'>Batal</button><br>";
+                totalHarga += pesanan[i].harga * pesanan[i].qty;
             }
 
             document.getElementById("pesanan").innerHTML = "Nama Pembeli: " + nama + "<br>" + "Nomor HP: " + hp + "<br>" + "Pesanan:<br>" + pesananText;
